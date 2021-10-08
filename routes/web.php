@@ -17,7 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
 
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -25,3 +27,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

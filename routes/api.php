@@ -23,8 +23,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', 'Auth\ApiAuthController@login');
 
+// remember to put in middleware
 
 
-// Auth::routes();
 
-// Auth::routes();
+Route::group(['middleware' => ['api']], function () {
+    //
+    Route::resource('store', 'sanctum\StoreController');
+});
+    
