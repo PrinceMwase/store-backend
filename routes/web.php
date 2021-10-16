@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Resources\Product;
-use App\Product as AppProduct;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +32,3 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/product', function () {
-    return Product::collection(AppProduct::paginate(5));
-    });

@@ -17,10 +17,10 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('price');
-            $table->integer('category_id');
-            $table->integer('store_id');
-            $table->enum('status', ['ordered', 'active', 'inactive', 'sold']);
-            $table->integer('photo_id');
+            $table->integer('category_id')->nullable();
+            $table->integer('store_id')->nullable();
+            $table->enum('status', ['ordered', 'active', 'inactive', 'sold'])->default('active');
+            $table->integer('photo_id')->nullable();
             $table->timestamps();
         });
     }

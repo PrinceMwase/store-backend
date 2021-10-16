@@ -3,8 +3,10 @@
 namespace App\Policies;
 
 use App\Product;
+use App\Store;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class ProductPolicy
 {
@@ -39,9 +41,12 @@ class ProductPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Store $store)
     {
         //
+        return $user->store->id === $store->id 
+                ? Response::allow()  
+                : Response::deny('You do not own this Store.'); 
     }
 
     /**
@@ -54,6 +59,9 @@ class ProductPolicy
     public function update(User $user, Product $product)
     {
         //
+        return $user->store->id === $product->store->id 
+                ? Response::allow()  
+                : Response::deny('You do not own this Product.'); 
     }
 
     /**
@@ -66,6 +74,9 @@ class ProductPolicy
     public function delete(User $user, Product $product)
     {
         //
+        return $user->store->id === $product->store->id 
+                ? Response::allow()  
+                : Response::deny('You do not own this Product.'); 
     }
 
     /**

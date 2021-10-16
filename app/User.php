@@ -36,4 +36,12 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relation Defintions
+
+    public function store(){
+
+        return $this->hasOne(Store::class);
+        
+    }
 }

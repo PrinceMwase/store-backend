@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -17,11 +16,20 @@ use Illuminate\Validation\ValidationException;
 |
 */
 
+// sanctum middleware Group
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    
+    // Product routes
+    Route::resource('product', 'sanctum\ProductController');
+  
+
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login', 'Auth\ApiAuthController@login');
+
 
 // remember to put in middleware
 
