@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Product routes
     Route::resource('product', 'sanctum\ProductController');
   
+    Route::resource('store', 'sanctum\StoreController');
 
 });
 

@@ -13,9 +13,24 @@ class Store extends Model
 
       // Relation Defintions
 
-      public function user(){
-
-        return $this->belongsTo(User::class);
-        
+    public function user(){
+        return $this->belongsTo(User::class);    
     }
+
+    public function photo(){
+      return $this->belongsTo(Photo::class);
+    }
+
+    public function description(){
+      return $this->morphOne(Description::class, 'describable');
+    }
+
+    // scope
+    public function scopeActive($query)
+    {
+      return $query->where('status', 'active');
+    }
+
+
+
 }

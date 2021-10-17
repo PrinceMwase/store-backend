@@ -64,6 +64,7 @@ class ProductController extends Controller
 
         $product->save();
 
+        return response('Created', 200);
     }
 
     /**
@@ -127,6 +128,8 @@ class ProductController extends Controller
 
 
         $product->save();
+
+        return response('updated', 200);
     }
 
     /**

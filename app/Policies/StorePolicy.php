@@ -42,6 +42,7 @@ class StorePolicy
     public function create(User $user)
     {
         //
+        return $user->user_type->name == 'seller';
     }
 
     /**
@@ -54,6 +55,7 @@ class StorePolicy
     public function update(User $user, Store $store)
     {
         //
+        return $user->store->id == $store->id;
     }
 
     /**
@@ -66,6 +68,7 @@ class StorePolicy
     public function delete(User $user, Store $store)
     {
         //
+        return $user->store->id == $store->id;
     }
 
     /**

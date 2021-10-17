@@ -15,10 +15,10 @@ class CreateStoresTable extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('user_id');
-            $table->enum('status', ['active', 'inactive']);
-            $table->integer('photo_id');
+            $table->string('name')->unique();
+            $table->integer('user_id')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('inactive');
+            $table->integer('photo_id')->nullable();
             $table->timestamps();
         });
     }
