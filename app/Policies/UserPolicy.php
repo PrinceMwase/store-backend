@@ -33,7 +33,8 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can create models.
+
+    * Determine whether the user can create models.
      *
      * @param  \App\User  $user
      * @return mixed
@@ -53,6 +54,9 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         //
+        return $user->id == $model->id;
+
+        
     }
 
     /**

@@ -24,6 +24,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   
     Route::resource('store', 'sanctum\StoreController');
 
+    Route::resource('location', 'sanctum\LocationController');
+
+    Route::resource('subLocation', 'sanctum\SubLocationsController');
+
+    Route::resource('category', 'sanctum\CategoryController');
+    
+    Route::get('addToCart/{id}', 'sanctum\TransactionController@addToCart' );
+    Route::get('getCart', 'sanctum\TransactionController@getCart');
+    Route::get('getCartTotal', 'sanctum\TransactionController@getCartTotal');
+  
+    Route::resource('user', 'sanctum\UserController');
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -36,8 +48,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::group(['middleware' => ['api']], function () {
+
     //
     Route::resource('store', 'sanctum\StoreController');
-});
+
+   
+
+
+
     

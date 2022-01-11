@@ -75,6 +75,8 @@ class StoreController extends Controller
 
         $store->user()->associate( $user );
 
+        $store->description()->save( new Description( [ 'description' => $request->description ] ) );
+
         $store->photo()->associate( $photo );
 
         $store->save();
@@ -171,7 +173,8 @@ class StoreController extends Controller
 
         $request->validate([
             'name' => "required|string|unique:stores",
-            'photo' => "required|image"
+            'photo' => "required|image",
+            'description' => 'required|string'
         ]);
      }
 }

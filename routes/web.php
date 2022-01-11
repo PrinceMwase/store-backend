@@ -32,3 +32,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/cart', 'sanctum\TransactionController@addTocart');
+

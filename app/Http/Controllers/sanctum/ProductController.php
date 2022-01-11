@@ -31,7 +31,7 @@ class ProductController extends Controller
     {
         //
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -78,8 +78,10 @@ class ProductController extends Controller
         // find the product
         $product = AppProduct::findOrFail($id);
 
+        
         // return the resource responce
-        return new Product( $product );
+        
+        return new Product($product);
     }
 
     /**
