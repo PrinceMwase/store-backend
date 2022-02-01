@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\web\UserController;
 use Illuminate\Support\ServiceProvider;
+use TCG\Voyager\Http\Controllers\VoyagerUserController;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        $this->app->bind(VoyagerUserController::class, UserController::class);
     }
 
     /**

@@ -15,6 +15,9 @@ class CreatePaymentPortalsTable extends Migration
     {
         Schema::create('payment_portals', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->string('checkout_link');
+            $table->bigInteger('photo_id');
             $table->timestamps();
         });
     }

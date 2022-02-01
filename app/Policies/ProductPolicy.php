@@ -21,6 +21,8 @@ class ProductPolicy
     public function viewAny(User $user)
     {
         //
+        return $user->status == 'active' ? Response::allow()  
+            : Response::deny('This account has been diactivated, Please Contact the Adminstrator');
     }
 
     /**
@@ -30,9 +32,12 @@ class ProductPolicy
      * @param  \App\Product  $product
      * @return mixed
      */
-    public function view(User $user, Product $product)
+    public function view(User $user)
     {
         //
+      
+        return $user->status == 'active' ? Response::allow()  
+        : Response::deny('This account has been diactivated, Please Contact the Adminstrator');
     }
 
     /**
@@ -41,12 +46,12 @@ class ProductPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user, Store $store)
+    public function create(User $user)
     {
         //
-        return $user->store->id === $store->id 
+        return $user->role->name == 'Seller'
                 ? Response::allow()  
-                : Response::deny('You do not own this Store.'); 
+                : Response::deny('Forbidden, you are using ' . $user->role->name . " account "); 
     }
 
     /**
@@ -59,7 +64,7 @@ class ProductPolicy
     public function update(User $user, Product $product)
     {
         //
-        return $user->store->id === $product->store->id 
+        return $user->seller->id === $product->store->seller->id 
                 ? Response::allow()  
                 : Response::deny('You do not own this Product.'); 
     }
@@ -74,7 +79,7 @@ class ProductPolicy
     public function delete(User $user, Product $product)
     {
         //
-        return $user->store->id === $product->store->id 
+        return $user->seller->id === $product->store->seller->id  
                 ? Response::allow()  
                 : Response::deny('You do not own this Product.'); 
     }

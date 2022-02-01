@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->enum('status', ['ordered', 'active', 'inactive', 'sold'])->default('active');
             $table->integer('photo_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -32,6 +33,9 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        }); 
         Schema::dropIfExists('products');
     }
 }

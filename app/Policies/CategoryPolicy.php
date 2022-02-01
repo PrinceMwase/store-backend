@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Category;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-
+use Illuminate\Auth\Access\Response;
 class CategoryPolicy
 {
     use HandlesAuthorization;
@@ -19,6 +19,8 @@ class CategoryPolicy
     public function viewAny(User $user)
     {
         //
+        return $user->status == 'active' ? Response::allow()  
+        : Response::deny('This account has been diactivated, Please Contact the Adminstrator');
     }
 
     /**
@@ -31,6 +33,7 @@ class CategoryPolicy
     public function view(User $user, Category $category)
     {
         //
+        return true;
     }
 
     /**
@@ -42,6 +45,7 @@ class CategoryPolicy
     public function create(User $user)
     {
         //
+        return $user->role->name == 'admin';
     }
 
     /**
@@ -54,6 +58,7 @@ class CategoryPolicy
     public function update(User $user, Category $category)
     {
         //
+        return $user->role == 'admin';
     }
 
     /**
@@ -66,6 +71,7 @@ class CategoryPolicy
     public function delete(User $user, Category $category)
     {
         //
+        return $user->role() == 'admin';
     }
 
     /**

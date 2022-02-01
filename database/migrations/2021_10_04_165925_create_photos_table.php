@@ -17,6 +17,7 @@ class CreatePhotosTable extends Migration
             $table->id();
             $table->text('photo');
             $table->text('thumbnail');
+            $table->bigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

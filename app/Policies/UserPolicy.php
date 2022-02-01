@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class UserPolicy
 {
@@ -18,6 +19,9 @@ class UserPolicy
     public function viewAny(User $user)
     {
         //
+        
+        return $user->role->name == 'admin' ? Response::allow()  
+        : Response::deny('You do not have the right access, Please Contact the Adminstrator');
     }
 
     /**
@@ -30,6 +34,9 @@ class UserPolicy
     public function view(User $user, User $model)
     {
         //
+        
+        return $user->id == $model->id ? Response::allow()  
+        : Response::deny('You do not have the right access, Please Contact the Adminstrator');
     }
 
     /**
@@ -42,6 +49,9 @@ class UserPolicy
     public function create(User $user)
     {
         //
+        
+        return $user->role->name == 'admin' ? Response::allow()  
+        : Response::deny('You do not have the right access, Please Contact the Adminstrator');
     }
 
     /**
@@ -54,7 +64,9 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         //
-        return $user->id == $model->id;
+        
+        return $user->id == $model->id ? Response::allow()  
+        : Response::deny('You do not have the right access, Please Contact the Adminstrator');
 
         
     }

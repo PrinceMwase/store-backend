@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/{any?}', [
+    function () {
+        return view('welcome');
+    }
+])->where('any', '.*');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -34,3 +41,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/cart', 'sanctum\TransactionController@addTocart');
 
+
+// product Route
+    Route::resource('products', 'web\ProductController');
+
+// photo Route
+Route::resource('photos', 'web\PhotoController');
+
+// store Route
+Route::resource('stores', 'web\StoreController');

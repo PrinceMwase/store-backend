@@ -42,7 +42,7 @@ return [
     */
 
     'models' => [
-       // 'namespace' => 'App\\Models\\',
+       'namespace' => 'App\\',
     ],
 
     /*
@@ -219,7 +219,7 @@ return [
     ],
 
     // Activate compass when environment is NOT local
-    'compass_in_production' => false,
+    'compass_in_production' => true,
 
     'media' => [
         // The allowed mimetypes to be uploaded through the media-manager.

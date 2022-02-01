@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Store;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-
+use Illuminate\Auth\Access\Response;
 class StorePolicy
 {
     use HandlesAuthorization;
@@ -19,6 +19,8 @@ class StorePolicy
     public function viewAny(User $user)
     {
         //
+        return $user->status == 'active' ? Response::allow()  
+        : Response::deny('This account has been diactivated, Please Contact the Adminstrator');
     }
 
     /**
@@ -31,6 +33,8 @@ class StorePolicy
     public function view(User $user, Store $store)
     {
         //
+        return $user->seller->id == $store->seller->id ? Response::allow()  
+        : Response::deny('You do not have view to Update this Store');
     }
 
     /**
@@ -42,7 +46,8 @@ class StorePolicy
     public function create(User $user)
     {
         //
-        return $user->user_type->name == 'seller';
+        return $user->role->name == 'Seller' ? Response::allow()  
+        : Response::deny('This is account type is not authorised');
     }
 
     /**
@@ -55,7 +60,8 @@ class StorePolicy
     public function update(User $user, Store $store)
     {
         //
-        return $user->store->id == $store->id;
+        return $user->seller->id == $store->seller->id ? Response::allow()  
+        : Response::deny('You do not have permission to Update this Store');
     }
 
     /**
@@ -68,7 +74,8 @@ class StorePolicy
     public function delete(User $user, Store $store)
     {
         //
-        return $user->store->id == $store->id;
+        return $user->seller->id == $store->seller->id ? Response::allow()  
+        : Response::deny('This is account type is not authorised');
     }
 
     /**
@@ -81,6 +88,7 @@ class StorePolicy
     public function restore(User $user, Store $store)
     {
         //
+        
     }
 
     /**

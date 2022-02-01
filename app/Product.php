@@ -4,10 +4,15 @@ namespace App;
 use Gloudemans\Shoppingcart\CanBeBought;
 use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model implements Buyable
 {
     
+
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
+
     // mass assignments
     protected $fillable = ['name', 'price'];
 
@@ -24,6 +29,11 @@ class Product extends Model implements Buyable
     public function photo(){
         return $this->belongsTo(Photo::class);
     }
+
+    public function photos(){
+        return $this->hasMany(ProductPhoto::class);
+    }
+    
 
     public function description(){
         return $this->morphOne(Description::class, 'describable');
@@ -43,6 +53,10 @@ class Product extends Model implements Buyable
     public function getBuyableWeight($options = null)
     {
         return 1;
+    }
+    public function scopeOwned($query){
+        $stores = User::find ( auth()->user()->id )->seller->store->modelKeys();
+        return $query->whereIntegerInRaw('store_id' ,  $stores);
     }
 
 

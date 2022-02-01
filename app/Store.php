@@ -28,10 +28,19 @@ class Store extends Model
       return $this->morphOne(Description::class, 'describable');
     }
 
+    public function products(){
+      return $this->hasMany( Product::class );
+    }
+
     // scope
     public function scopeActive($query)
     {
       return $query->where('status', 'active');
+    }
+
+    public function scopeOwned($query){
+      $stores = User::find ( auth()->user()->id )->seller->store->modelKeys();
+      return $query->whereIntegerInRaw('id' ,  $stores);
     }
 
 

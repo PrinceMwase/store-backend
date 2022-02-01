@@ -18,7 +18,7 @@ class CreateStoresTable extends Migration
             $table->string('name')->unique();
             $table->integer('seller_id')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('inactive');
-            $table->integer('photo_id')->nullable();
+            $table->integer('photo_id');
             $table->timestamps();
         });
     }

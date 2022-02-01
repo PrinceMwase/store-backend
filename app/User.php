@@ -6,8 +6,9 @@ use Gloudemans\Shoppingcart\Contracts\InstanceIdentifier;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Illuminate\Notifications\Notifiable;
+use TCG\Voyager\Models\User as ModelsUser;
 
-class User extends \TCG\Voyager\Models\User implements InstanceIdentifier
+class User extends ModelsUser implements InstanceIdentifier
 {
     use Notifiable;
 
@@ -54,9 +55,14 @@ class User extends \TCG\Voyager\Models\User implements InstanceIdentifier
 
     // Relation Defintions
 
-    public function store(){
+    public function seller(){
 
-        return $this->hasOne(Store::class);
+        return $this->hasOne(Seller::class);
         
+    }
+
+    // scope
+    public function scopeUser($query){
+        return $query->where('id', auth()->user()->id);
     }
 }
